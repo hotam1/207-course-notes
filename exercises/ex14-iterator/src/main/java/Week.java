@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -33,7 +34,7 @@ public class Week implements Iterable<String> {
   }
 
   @Override
-  public Iterator<String> iterator() {
+  public Iterator<String> iterator() { // RETURNS ITERATOR<STRING>
     // TODO: return an Iterator<String> that yields days[0], days[1], ... in
     //       order. The usual approach is a small (nested) class that implements
     //       Iterator<String>:
@@ -41,7 +42,22 @@ public class Week implements Iterable<String> {
     //         - next() returns the next day and advances, or throws
     //           java.util.NoSuchElementException if none remain.
     //       Replace the empty iterator below with an instance of your class.
-    return Collections.emptyIterator();
+    return new Iterator<String>() { // WE NEED TO RETURN NEW ITERATOR
+      int counter = 0;
+
+      @Override
+      public boolean hasNext() {
+        return counter < days.length;
+      }
+
+      @Override
+      public String next() {
+        if (!hasNext()){ // THERE IS NO NEXT
+          throw new java.util.NoSuchElementException();
+        }
+        return days[counter++];
+      }
+    };
   }
 
   /** Prints each day of the week, one per line. */
@@ -52,3 +68,19 @@ public class Week implements Iterable<String> {
     }
   }
 }
+// Sometimes we cannot iterate everything in a collection. This task
+// is to show how we can iterate through Iterator <String> interface
+
+//       public boolean hasNext() {
+//        return index < days.length;
+//      }
+//
+//      @Override
+//      public String next() {
+//        if (!hasNext()) {
+//          throw new java.util.NoSuchElementException();
+//        }
+//        return days[index++];
+//      }
+//    };
+//  }
